@@ -15,6 +15,8 @@ import { OpenDropdownDirective } from './directives/open-dropdown.directive';
 import {HttpService} from "./services/http.service";
 import {TodoManagerService} from "./services/todo-manager.service";
 import {SelectionService} from "./services/selection.service";
+import {routing} from "./app.routing";
+import { TodoFormComponent } from './user/todo-form/todo-form.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,14 @@ import {SelectionService} from "./services/selection.service";
     DetailsComponent,
     ListComponent,
     ItemComponent,
-    OpenDropdownDirective
+    OpenDropdownDirective,
+    TodoFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [HttpService, TodoManagerService, SelectionService],
   bootstrap: [AppComponent]

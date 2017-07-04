@@ -1,5 +1,5 @@
 export class Todo {
-  constructor(private _title: string , private _details: string , private _type: number , private _imagePath: string) {}
+  constructor(private _title: string , private _details: string , private _type: string , private _imagePath: string) {}
 
 
   get title(): string {
@@ -18,11 +18,11 @@ export class Todo {
     this._details = value;
   }
 
-  get type(): number {
+  get type(): string {
     return this._type;
   }
 
-  set type(value: number) {
+  set type(value: string) {
     this._type = value;
   }
 
@@ -32,5 +32,8 @@ export class Todo {
 
   set imagePath(value: string) {
     this._imagePath = value;
+  }
+  public clone(): Todo{
+    return new Todo(this._title,this._details,this._type,this._imagePath);
   }
 }

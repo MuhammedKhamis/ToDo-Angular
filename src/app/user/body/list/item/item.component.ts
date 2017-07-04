@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Todo} from "../../../../classes/todo";
+import {SelectionService} from "../../../../services/selection.service";
 
 @Component({
   selector: 'app-item',
@@ -11,6 +12,7 @@ export class ItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

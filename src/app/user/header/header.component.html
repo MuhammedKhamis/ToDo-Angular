@@ -8,23 +8,23 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Angular ToDo app</a>
+      <a class="navbar-brand" [routerLink]="['']">Angular ToDo app</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Doing <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Done</a></li>
-        <li><a href="#">Archived</a></li>
+        <li><a [routerLink]="['Doing']">Doing <span class="sr-only">(current)</span></a></li>
+        <li><a [routerLink]="['Done']">Done</a></li>
+        <li><a [routerLink]="['Archived']">Archived</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" appOpenDropdown>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Make new Todo</a></li>
+            <li><a [routerLink]="['new']">Make new Todo</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Log Out</a></li>
+            <li><a>Log Out</a></li>
           </ul>
         </li>
       </ul>

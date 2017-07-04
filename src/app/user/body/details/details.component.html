@@ -8,11 +8,13 @@
     <h1>{{selectedTodo?.title}}</h1>
   </div>
   <div class="col-xs-12" *ngIf="selectedTodo">
-    <button class="btn btn-success" *ngFor="let type of types"
-            style="margin: 2px"
-            (click)="changeType(type)">
-            Mark as {{type}}</button>
-    <button class="btn btn-primary" (click)="edit()">Edit</button>
+    <ng-container *ngFor="let type of types" >
+      <button *ngIf="selectedTodo.type != type" class="btn btn-success"
+              style="margin: 2px"
+              (click)="changeType(type)">
+              Mark as {{type}}</button>
+    </ng-container>
+    <button class="btn btn-primary"  (click)="edit()">Edit</button>
     <button class="btn btn-danger" (click)="delete()">Delete</button>
     <button class="btn btn-danger" (click)="cancel()">Cancel</button>
   </div>
