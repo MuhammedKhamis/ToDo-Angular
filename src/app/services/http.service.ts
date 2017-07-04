@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import {Http} from "@angular/http";
+import {EventEmitter, Injectable} from '@angular/core';
+import {Http, Response} from "@angular/http";
+import {Todo} from "../classes/todo";
+import 'rxjs/Rx';
 
 @Injectable()
 export class HttpService {
@@ -7,9 +9,12 @@ export class HttpService {
   constructor(private http: Http) { }
 
   public fetchData() {
-    //ToDo
+    return this.http.get('https://to-do-5249f.firebaseio.com/data.json')
+      .map((response: Response) => response.json());
   }
-  public storeDate() {
-    //ToDo
+  public storeDate(todos: Todo[]) {
+    const body = JSON.stringify(todos);
+    return this.http.put('https://to-do-5249f.firebaseio.com/data.json', body)
+      .map((response: Response) => (response.json()));
   }
 }

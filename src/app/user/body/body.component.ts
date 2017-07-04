@@ -12,29 +12,30 @@ import {TodoManagerService} from "../../services/todo-manager.service";
 export class BodyComponent implements OnInit , OnDestroy {
 
   private subscription: Subscription;
- // private subscription2: Subscription;
-  private todos: Todo[]=[];
+  private todos: Todo[]= [];
   constructor(private todoManager: TodoManagerService, private activatedRoute: ActivatedRoute) {
+    console.log(this.todos);
     this.subscription = activatedRoute.params.subscribe(
-      (data: any) => {this.updateTodos(data['type']);
-        console.log(this.activatedRoute.params);
+      (data: any) => {
+        this.updateTodos(data['type']);
+        console.log(data['type']);
       }
     );
-    //this.subscription2 = todoManager
   }
 
   private updateTodos(type: string){
     if (type) {
       this.todos = this.todoManager.getDataByType(type);
-    }else{
+    }else {
       this.todos = this.todoManager.getData();
     }
   }
   ngOnDestroy() {
-    //this.subscription2.unsubscribe();
     this.subscription.unsubscribe();
   }
   ngOnInit() {
+    this.todos = this.todoManager.getData();
   }
+
 
 }
