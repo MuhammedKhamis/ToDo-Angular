@@ -8,7 +8,8 @@ const appRoutes: Routes = [
   {path: 'new', component: TodoFormComponent},
   {path: 'edit', component: TodoFormComponent},
   {path: ':type', component: BodyComponent},
-  {path: '' , component: BodyComponent, canActivate: [BodyGuardService]}
+  {path: 'all', component: BodyComponent},
+  {path: '' , redirectTo: 'all' , pathMatch: 'full'}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

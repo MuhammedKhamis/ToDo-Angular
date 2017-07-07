@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private selectedTodo: Todo;
   private types: string[];
   private subscription: Subscription;
+  private subscription2: Subscription;
   constructor(private selection: SelectionService, private todoManager: TodoManagerService, private router: Router) {
     this.types = todoManager.types;
   }
@@ -32,7 +33,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
   delete(){
    if (confirm('Are you sure ?') ) {
-     this.todoManager.deleteTodo(this.selectedTodo);
+    this.subscription2 = this.todoManager.deleteTodo(this.selectedTodo).subscribe(
+       (response) => {
+         this.todoManager.convert(response);
+       }
+     );
      this.selection.selectedTodo = null;
    }
   }
@@ -46,18 +51,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
         'imagePath' : this.selectedTodo.imagePath
       }
     });
-    console.log('item edited');
   }
   changeType(type: string){
-    const tmp = this.selectedTodo.clone();
+    const tmp = this.todoManager.clone(this.selectedTodo);
     tmp.type = type;
     this.todoManager.modifyTodo(this.selectedTodo, tmp);
     this.selection.selectedTodo = null;
-    console.log('item changed to ' + type );
   }
   ngOnDestroy(){
     if(this.subscription){
       this.subscription.unsubscribe();
+    }
+    if(this.subscription2){
+      this.subscription2.unsubscribe();
     }
   }
 

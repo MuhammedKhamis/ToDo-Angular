@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from "../../classes/todo";
 import {Form} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {TodoManagerService} from "../../services/todo-manager.service";
 
@@ -14,19 +14,22 @@ export class TodoFormComponent implements OnDestroy {
   private defaultTodo: Todo;
   private oldTodo: Todo;
   private subscription: Subscription;
+  private subscription2: Subscription;
+  private tmp: any;
   private types;
   private add: boolean;
-  constructor(private activatedRoute: ActivatedRoute, private todoManager: TodoManagerService) {
+  constructor(private activatedRoute: ActivatedRoute, private todoManager: TodoManagerService,
+  private router: Router) {
     this.types = todoManager.types;
     this.subscription = activatedRoute.queryParams.subscribe(
       (params: any) => {
         if(params['title']) {
-          this.defaultTodo = new Todo(params['title'],params['details'],params['type'],params['imagePath']);
-          this.oldTodo = this.defaultTodo.clone();
-          this.add = true;
-        }else{
-          this.defaultTodo = new Todo('', '', 'Doing' , '');
+          this.defaultTodo = this.todoManager.clone(params);
+          this.oldTodo = this.todoManager.clone(this.defaultTodo);
           this.add = false;
+        }else{
+          this.defaultTodo = {title:'',details: '',type: 'Doing' ,imagePath: ''};
+          this.add = true;
         }
       }
     );
@@ -34,15 +37,23 @@ export class TodoFormComponent implements OnDestroy {
   }
 
   ngOnDestroy(){
+    if(this.subscription2){
+      this.subscription2.unsubscribe();
+    }
     this.subscription.unsubscribe();
   }
 
   onSubmit(form: Form){
-    if(this.add){
-     //this.todoManager.addTodo(this.defaultTodo);
-    }else{
-      //this.todoManager.modifyTodo(this.defaultTodo, this.oldTodo);
+    if (this.add) {
+      this.tmp = this.todoManager.addTodo(this.defaultTodo);
+    }else {
+      this.tmp = this.todoManager.modifyTodo(this.oldTodo, this.defaultTodo);
     }
+    this.subscription2 = this.tmp.subscribe(
+      (response) => {
+        this.todoManager.convert(response);
+        this.router.navigate(['']);
+      });
   }
 
 }
