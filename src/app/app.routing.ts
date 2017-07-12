@@ -1,15 +1,14 @@
 import {RouterModule, Routes} from '@angular/router';
-import {BodyComponent} from './user/body/body.component';
-import {TodoFormComponent} from "./user/todo-form/todo-form.component";
-import {BodyGuardService} from "./services/body-guard.service";
+
+import {UserComponent} from "./user/user.component";
+import {userRoutes} from "./user/user.routing";
+import {WelcomeComponent} from "./welcome/welcome.component";
 
 
 const appRoutes: Routes = [
-  {path: 'new', component: TodoFormComponent},
-  {path: 'edit', component: TodoFormComponent},
-  {path: ':type', component: BodyComponent},
-  {path: 'all', component: BodyComponent},
-  {path: '' , redirectTo: 'all' , pathMatch: 'full'}
+  {path: 'user', redirectTo: 'user/all' , pathMatch: 'full'},
+  {path: 'user', component: UserComponent , children: userRoutes},
+  {path: '' , component: WelcomeComponent}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

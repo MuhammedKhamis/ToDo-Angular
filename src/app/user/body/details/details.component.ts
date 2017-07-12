@@ -44,7 +44,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   edit(){
     //ToDo
-    this.router.navigate(['edit'], {queryParams:
+    this.router.navigate(['user', 'edit'], {queryParams:
       {'title' : this.selectedTodo.title,
         'details' : this.selectedTodo.details,
         'type' : this.selectedTodo.type,
