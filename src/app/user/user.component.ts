@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TodoManagerService} from "../services/todo-manager.service";
 
 @Component({
   selector: 'app-user',

@@ -4,6 +4,7 @@ import {Form} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {TodoManagerService} from "../../services/todo-manager.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-todo-form',
@@ -19,7 +20,7 @@ export class TodoFormComponent implements OnDestroy {
   private types;
   private add: boolean;
   constructor(private activatedRoute: ActivatedRoute, private todoManager: TodoManagerService,
-  private router: Router) {
+  private router: Router, private auth: AuthService) {
     this.types = todoManager.types;
     this.subscription = activatedRoute.queryParams.subscribe(
       (params: any) => {
@@ -44,6 +45,7 @@ export class TodoFormComponent implements OnDestroy {
   }
 
   onSubmit(form: Form){
+    console.log(this.auth.isAuth());
     if (this.add) {
       this.tmp = this.todoManager.addTodo(this.defaultTodo);
     }else {

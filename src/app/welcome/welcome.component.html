@@ -15,7 +15,7 @@
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <form class="form-signin" [formGroup]="logInForm" (ngSubmit)="onLogIn()">
+      <form class="form-signin" [formGroup]="logInForm">
         <div class="modal-body">
           <h2 class="form-signin-heading">Please sign in</h2><br/>
           <h4 id="error"></h4><br/>
@@ -24,7 +24,7 @@
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" id="inputPassword" formControlName="password" name="password" class="form-control" placeholder="Password" required>
           <br/>
-          <button class="btn btn-primary btn-block" type="submit" [disabled]="!logInForm.valid">Sign in</button>
+          <button class="btn btn-primary btn-block" type="submit" [disabled]="!logInForm.valid" data-dismiss="modal" (click)="onLogIn()">Sign in</button>
           <button type="submit" class="btn-block btn btn-default cancel" data-dismiss="modal">Cancel</button>
         </div>
       </form>
@@ -38,19 +38,16 @@
     <div class="modal-content">
       <div class="modal-body">
 
-        <form id="register-form" class="form-signin" [formGroup]="signUpForm" novalidate="novalidate" (ngSubmit)="onSignUp()">
+        <form id="register-form" class="form-signin" [formGroup]="signUpForm" novalidate="novalidate">
 
           <h2 class="form-signin-heading">Register</h2><br/>
-          <h4 id="error2"></h4><br/>
-          <input type="text" id="firstname" name="firstname" class="form-control" formControlName="username" placeholder="Name" required autofocus>
-          <br/>
           <label for="email" class="sr-only">Email address</label>
           <input type="email" id="email" name="email" class="form-control" formControlName="email" placeholder="Email address" required>
           <br/>
           <label for="password" class="sr-only">Password</label>
           <input type="password" id="password" name="password" class="form-control" formControlName="password" placeholder="Password" required>
           <br/><br/>
-          <button class="btn btn-primary btn-block" type="submit" [disabled]="signUpForm.valid">Submit</button>
+          <button class="btn btn-primary btn-block" type="submit" [disabled]="!signUpForm.valid" data-dismiss="modal" (click)="onSignUp()">Submit</button>
           <button type="submit" class="btn-block btn btn-default cancel" data-dismiss="modal">Cancel</button>
 
         </form>

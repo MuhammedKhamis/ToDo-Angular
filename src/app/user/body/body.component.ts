@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {Todo} from "../../classes/todo";
 import {TodoManagerService} from "../../services/todo-manager.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-body',
@@ -14,7 +15,7 @@ export class BodyComponent implements OnInit , OnDestroy {
   private subscription: Subscription;
   private subscription2: Subscription;
   private todos: Todo[];
-  constructor(private todoManager: TodoManagerService, private activatedRoute: ActivatedRoute) {
+  constructor(private todoManager: TodoManagerService, private activatedRoute: ActivatedRoute, private auth: AuthService) {
     this.subscription = activatedRoute.params.subscribe(
       (data: any) => {
         this.updateTodos(data['type']);

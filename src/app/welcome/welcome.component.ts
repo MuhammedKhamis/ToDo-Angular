@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
+import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-welcome',
@@ -10,7 +12,7 @@ export class WelcomeComponent implements OnInit {
 
   logInForm: FormGroup;
   signUpForm: FormGroup;
-  constructor() { }
+  constructor(private auth: AuthService,private router: Router) { }
 
   ngOnInit() {
     this.logInForm = new FormGroup({
@@ -19,16 +21,16 @@ export class WelcomeComponent implements OnInit {
       'password': new FormControl()
     });
     this.signUpForm = new FormGroup({
-      'username': new FormControl(),
-      'password': new FormControl(),
       'email': new FormControl('',
         Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")),
+      'password': new FormControl()
     });
   }
+
   onLogIn(){
-    console.log(this.logInForm);
+    this.auth.signin(this.logInForm.value);
   }
   onSignUp(){
-
+    this.auth.signup(this.signUpForm.value);
   }
 }
