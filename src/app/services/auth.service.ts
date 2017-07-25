@@ -10,16 +10,23 @@ export class AuthService {
   constructor(private router: Router) { }
 
   signup(user: User) {
-    firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function(error) {
-      console.log(error);
+    firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(function (response) {
+      var updates = {};
+      updates['/users/' + response.uid] = { email: user.email, password: user.password, todos: JSON.stringify(user.todos)};
+      this.update(updates);
+    })
+      .catch(function(error) {
+      alert('Email is already used');
     });
     this.router.navigate(['']);
   }
   signin(user: User) {
-    firebase.auth().signInWithEmailAndPassword(user.email, user.password).catch(function(error) {
-      console.log(error);
+    firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+      .then(() => this.router.navigate(['user']))
+      .catch(() => {
+        this.router.navigate(['']);
+        alert('Wrong Email or Password');
     });
-    this.router.navigate(['user']);
   }
   signout(){
     firebase.auth().signOut().catch(function(error) {
@@ -35,5 +42,17 @@ export class AuthService {
     }else {
       return false;
     }
+  }
+  getCurrentUserID(): string {
+    return firebase.auth().currentUser.uid;
+  }
+  getUserInfo(){
+    return firebase.database().ref('users/' + this.getCurrentUserID());
+  }
+  getUser(): any{
+    return firebase.auth().currentUser;
+  }
+  update(updates) {
+    firebase.database().ref().update(updates);
   }
 }

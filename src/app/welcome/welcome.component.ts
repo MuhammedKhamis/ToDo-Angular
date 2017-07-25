@@ -18,12 +18,12 @@ export class WelcomeComponent implements OnInit {
     this.logInForm = new FormGroup({
       'email': new FormControl('',
         Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")),
-      'password': new FormControl()
+      'password': new FormControl('', Validators.minLength(6))
     });
     this.signUpForm = new FormGroup({
       'email': new FormControl('',
         Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")),
-      'password': new FormControl()
+      'password': new FormControl('', Validators.minLength(6))
     });
   }
 
@@ -31,6 +31,8 @@ export class WelcomeComponent implements OnInit {
     this.auth.signin(this.logInForm.value);
   }
   onSignUp(){
-    this.auth.signup(this.signUpForm.value);
+    const tmp = this.signUpForm.value;
+    tmp.todos = [];
+    this.auth.signup(tmp);
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Todo} from "../../classes/todo";
 import {Form} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -15,8 +15,6 @@ export class TodoFormComponent implements OnDestroy {
   private defaultTodo: Todo;
   private oldTodo: Todo;
   private subscription: Subscription;
-  private subscription2: Subscription;
-  private tmp: any;
   private types;
   private add: boolean;
   constructor(private activatedRoute: ActivatedRoute, private todoManager: TodoManagerService,
@@ -38,24 +36,17 @@ export class TodoFormComponent implements OnDestroy {
   }
 
   ngOnDestroy(){
-    if(this.subscription2){
-      this.subscription2.unsubscribe();
-    }
     this.subscription.unsubscribe();
   }
 
-  onSubmit(form: Form){
-    console.log(this.auth.isAuth());
-    if (this.add) {
-      this.tmp = this.todoManager.addTodo(this.defaultTodo);
-    }else {
-      this.tmp = this.todoManager.modifyTodo(this.oldTodo, this.defaultTodo);
+  onSubmit(form: Form) {
+    if (this.auth.isAuth()) {
+        if (this.add) {
+          this.todoManager.addTodo(this.defaultTodo);
+        } else {
+          this.todoManager.modifyTodo(this.oldTodo, this.defaultTodo);
+        }
+      this.router.navigate(['user']);
     }
-    this.subscription2 = this.tmp.subscribe(
-      (response) => {
-        this.todoManager.convert(response);
-        this.router.navigate(['']);
-      });
   }
-
 }

@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from "../../../classes/todo";
 import {SelectionService} from "../../../services/selection.service";
 import {Subscription} from "rxjs/Subscription";
@@ -15,7 +15,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private selectedTodo: Todo;
   private types: string[];
   private subscription: Subscription;
-  private subscription2: Subscription;
   constructor(private selection: SelectionService, private todoManager: TodoManagerService, private router: Router) {
     this.types = todoManager.types;
   }
@@ -33,17 +32,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
   delete(){
    if (confirm('Are you sure ?') ) {
-    this.subscription2 = this.todoManager.deleteTodo(this.selectedTodo).subscribe(
-       (response) => {
-         this.todoManager.convert(response);
-       }
-     );
+     this.todoManager.deleteTodo(this.selectedTodo);
      this.selection.selectedTodo = null;
    }
   }
 
   edit(){
-    //ToDo
     this.router.navigate(['user', 'edit'], {queryParams:
       {'title' : this.selectedTodo.title,
         'details' : this.selectedTodo.details,
@@ -61,9 +55,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     if(this.subscription){
       this.subscription.unsubscribe();
-    }
-    if(this.subscription2){
-      this.subscription2.unsubscribe();
     }
   }
 

@@ -13,7 +13,6 @@ import {AuthService} from "../../services/auth.service";
 export class BodyComponent implements OnInit , OnDestroy {
 
   private subscription: Subscription;
-  private subscription2: Subscription;
   private todos: Todo[];
   constructor(private todoManager: TodoManagerService, private activatedRoute: ActivatedRoute, private auth: AuthService) {
     this.subscription = activatedRoute.params.subscribe(
@@ -31,14 +30,13 @@ export class BodyComponent implements OnInit , OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.subscription2.unsubscribe();
   }
   ngOnInit() {
-    this.subscription2 = this.todoManager.fetchData().subscribe(
-      (response) => {
-        this.todoManager.convert(response);
-        this.todos = this.todoManager.getData();
-      });
+    this.todoManager.fetchData().once('value', (snapshot) => {
+       console.log(snapshot.val().todos);
+       this.todoManager.convert(snapshot.val().todos);
+       this.todos = this.todoManager.getData();
+    });
   }
 
 
