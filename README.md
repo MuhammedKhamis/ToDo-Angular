@@ -5,7 +5,7 @@ This a To-Do single web application with Angular 4 as front end and using Fire B
 ## Features
 1.This app divide the todos into 3 categories `Doing` , `Done` and `Archived`.
 
-2. User is able to create new todo that consists of 3 main things.
+2.User is able to create new todo that consists of 3 main things.
 
    2.1 `title` which is essential for creating a new todo.
    
