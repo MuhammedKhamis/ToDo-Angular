@@ -1,28 +1,30 @@
 # TodoApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.3.
+This a To-Do single web application with Angular 4 as front end and using Fire Base for authentication.
 
-## Development server
+## Features
+1.This app divide the todos into 3 categories `Doing` , `Done` and `Archived`.
+2. User is able to create new todo that consists of 3 main things.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+   2.1 `title` which is essential for creating a new todo.
+   
+   2.2 `details` : optional user can add details or not.
+   
+   2.3 `image path` : optional user can enter the url for his image.
+   
+   2.4 `type` : essential to define of the todo if it done or doing or archived, the default is doing.
+   
+3. User can edit any todo he has done by simply choosing it, then click on the edit button.
+4. User can change the type of his todo by clicking on it then click on type he want.
+5. User can delete any todo.
+6. User can filter his todos according to their type.
 
-## Code scaffolding
+## Usage
+1. install the Fire Base SDK in index.html file.
+2. run `npm install`.
+3. run `ng serve`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+## Notes
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  1. The main purpose for this project is to learn new technology.
+  2. Sessions are not used.

@@ -19,6 +19,7 @@ import {routing} from "./app.routing";
 import { TodoFormComponent } from './user/todo-form/todo-form.component';
 import {BodyGuardService} from "./services/body-guard.service";
 import {AuthService} from "./services/auth.service";
+import {WelcomeGuardService} from "./services/welcome-guard.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import {AuthService} from "./services/auth.service";
     ReactiveFormsModule,
     routing
   ],
-  providers: [HttpService, TodoManagerService, SelectionService , BodyGuardService, AuthService],
+  providers: [HttpService, TodoManagerService, SelectionService , BodyGuardService, AuthService, WelcomeGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
