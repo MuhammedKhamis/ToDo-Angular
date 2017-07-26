@@ -33,7 +33,6 @@ export class BodyComponent implements OnInit , OnDestroy {
   }
   ngOnInit() {
     this.todoManager.fetchData().once('value', (snapshot) => {
-       console.log(snapshot.val().todos);
        this.todoManager.convert(snapshot.val().todos);
        this.todos = this.todoManager.getData();
     });
